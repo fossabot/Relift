@@ -29,6 +29,6 @@
     Remylift Admin
 </div>
 <div class="links">
-    <a href="{{ url('/') }}" target="_blank">网站首页</a>
+    <a href="{{ url('/')}}" target="_blank">网站首页</a>
     <a href="http://laravel-admin.org/docs"  target="_blank">操作文档</a>
 </div>
