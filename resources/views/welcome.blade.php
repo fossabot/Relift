@@ -63,6 +63,25 @@
                 margin-bottom: 30px;
             }
         </style>
+        {{ Html::script('js/tinymce/tinymce.min.js') }}
+        <script>
+            tinymce.init({
+                selector: '#text',
+                theme: 'modern',
+                width: 1200,
+                height: 400,
+                language: 'zh_CN',
+                plugins: [
+                    'advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                    'save table contextmenu directionality emoticons template paste textcolor'
+                ],
+                content_css: 'css/content.css',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
+                imagetools_cors_hosts: ['mydomain.com', 'otherdomain.com'],
+                imagetools_proxy: 'proxy.php'
+            });
+        </script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -89,6 +108,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <textarea id="text">Hello, World!</textarea>
             </div>
         </div>
     </body>

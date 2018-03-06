@@ -18,4 +18,9 @@
  *
  */
 
-Encore\Admin\Form::forget(['map', 'editor']);
+use App\Admin\Extensions\Tinymce;
+use Encore\Admin\Form;
+
+Form::extend('tiny', Tinymce::class);
+
+Form::forget(['map']);
