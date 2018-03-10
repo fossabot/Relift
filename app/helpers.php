@@ -21,3 +21,11 @@ if (! function_exists('getIP')){
 		return $ip;
 	}
 }
+
+
+if (! function_exists('conf')){
+	/*读取配置*/
+	function conf($conf){
+		 
+	}
+}
