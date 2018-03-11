@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('文章列表');
+            $content->header(conf('prefix'));
             //$content->description('description');
 
             $content->body($this->grid());

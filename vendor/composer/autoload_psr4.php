@@ -43,6 +43,7 @@ return array(
     'Encore\\Admin\\Scheduling\\' => array($vendorDir . '/laravel-admin-ext/scheduling/src'),
     'Encore\\Admin\\Media\\' => array($vendorDir . '/laravel-admin-ext/media-manager/src'),
     'Encore\\Admin\\Helpers\\' => array($vendorDir . '/laravel-admin-ext/helpers/src'),
+    'Encore\\Admin\\Config\\' => array($vendorDir . '/laravel-admin-ext/config/src'),
     'Encore\\Admin\\' => array($vendorDir . '/encore/laravel-admin/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/EmailValidator'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),

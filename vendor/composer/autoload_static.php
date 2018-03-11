@@ -95,6 +95,7 @@ class ComposerStaticInit58c74ffad3f0da4c0ae23ddc6dc107b1
             'Encore\\Admin\\Scheduling\\' => 24,
             'Encore\\Admin\\Media\\' => 19,
             'Encore\\Admin\\Helpers\\' => 21,
+            'Encore\\Admin\\Config\\' => 20,
             'Encore\\Admin\\' => 13,
             'Egulias\\EmailValidator\\' => 23,
         ),
@@ -274,6 +275,10 @@ class ComposerStaticInit58c74ffad3f0da4c0ae23ddc6dc107b1
         array (
             0 => __DIR__ . '/..' . '/laravel-admin-ext/helpers/src',
         ),
+        'Encore\\Admin\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel-admin-ext/config/src',
+        ),
         'Encore\\Admin\\' => 
         array (
             0 => __DIR__ . '/..' . '/encore/laravel-admin/src',
@@ -397,6 +402,7 @@ class ComposerStaticInit58c74ffad3f0da4c0ae23ddc6dc107b1
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\Profile' => __DIR__ . '/../..' . '/app/Models/Profile.php',
+        'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -658,6 +664,10 @@ class ComposerStaticInit58c74ffad3f0da4c0ae23ddc6dc107b1
         'Encore\\Admin\\Auth\\Database\\Permission' => __DIR__ . '/..' . '/encore/laravel-admin/src/Auth/Database/Permission.php',
         'Encore\\Admin\\Auth\\Database\\Role' => __DIR__ . '/..' . '/encore/laravel-admin/src/Auth/Database/Role.php',
         'Encore\\Admin\\Auth\\Permission' => __DIR__ . '/..' . '/encore/laravel-admin/src/Auth/Permission.php',
+        'Encore\\Admin\\Config\\Config' => __DIR__ . '/..' . '/laravel-admin-ext/config/src/Config.php',
+        'Encore\\Admin\\Config\\ConfigController' => __DIR__ . '/..' . '/laravel-admin-ext/config/src/ConfigController.php',
+        'Encore\\Admin\\Config\\ConfigModel' => __DIR__ . '/..' . '/laravel-admin-ext/config/src/ConfigModel.php',
+        'Encore\\Admin\\Config\\ConfigServiceProvider' => __DIR__ . '/..' . '/laravel-admin-ext/config/src/ConfigServiceProvider.php',
         'Encore\\Admin\\Console\\ImportCommand' => __DIR__ . '/..' . '/encore/laravel-admin/src/Console/ImportCommand.php',
         'Encore\\Admin\\Console\\InstallCommand' => __DIR__ . '/..' . '/encore/laravel-admin/src/Console/InstallCommand.php',
         'Encore\\Admin\\Console\\MakeCommand' => __DIR__ . '/..' . '/encore/laravel-admin/src/Console/MakeCommand.php',

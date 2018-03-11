@@ -5,6 +5,7 @@
  * Date: 2018/2/6
  * Time: 19:41
  */
+use App\Models\AdminConfig;
 
 if (! function_exists('getIP')){
 	/*获取客户端IP*/
@@ -22,10 +23,14 @@ if (! function_exists('getIP')){
 	}
 }
 
-
 if (! function_exists('conf')){
 	/*读取配置*/
-	function conf($conf){
-		 
+	function conf($name){
+		 $conf = AdminConfig::all()->toArray();
+		 $arr = [];
+		 foreach ($conf as $k => $v){
+		 	$arr[$v['name']] = $v['value'];
+		 }
+		 return $arr[$name];
 	}
 }
