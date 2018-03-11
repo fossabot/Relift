@@ -13,7 +13,7 @@ class Post extends Model
     }
 
     public function page(){
-    	return self::paginate(4);
+    	return self::paginate(1);
     }
 
     public function allPosts(){
