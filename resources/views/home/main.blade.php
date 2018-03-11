@@ -15,7 +15,7 @@
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/material-kit.min.css') }}
     {{ Html::style('css/00eeb4ecf11641c2adaf8195536f0b0e.css') }}
-    <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
+    {{ Html::style('css/video/video-js.min.css') }}
 </head>
 
 @yield('body')
@@ -48,6 +48,7 @@
 {{ Html::script('js/9192ebcd228c482e9ce3ac852bf828f5.js') }}
 {{-- Sharrre libray --}}
 {{ Html::script('js/jquery.sharrre.js') }}
-<script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+{{ Html::script('js/video/video.min.js') }}
+
 </body>
 </html>

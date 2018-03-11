@@ -5,7 +5,7 @@
  * Date: 2018/2/6
  * Time: 19:41
  */
-use App\Models\AdminConfig;
+use App\Models\Config;
 
 if (! function_exists('getIP')){
 	/*获取客户端IP*/
@@ -26,11 +26,18 @@ if (! function_exists('getIP')){
 if (! function_exists('conf')){
 	/*读取配置*/
 	function conf($name){
-		 $conf = AdminConfig::all()->toArray();
+		 $conf = Config::all()->toArray();
 		 $arr = [];
 		 foreach ($conf as $k => $v){
 		 	$arr[$v['name']] = $v['value'];
 		 }
 		 return $arr[$name];
+	}
+}
+
+if (! function_exists('post_img')){
+	/*文章图片显示*/
+	function post_img($img){
+		return asset('storage/uploads/' . $img);
 	}
 }

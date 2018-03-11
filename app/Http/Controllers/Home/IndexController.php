@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Post;
 
 class IndexController extends Controller
 {
@@ -13,9 +14,11 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        return view('home.index');
+		$posts = $post->allPosts();
+		$page = $post->page();
+        return view('home.index', ['posts' => $posts, 'page' => $page]);
     }
 
     public function profile($name){

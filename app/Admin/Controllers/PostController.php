@@ -10,7 +10,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header(conf('prefix'));
+            $content->header('l');
             //$content->description('description');
 
             $content->body($this->grid());
@@ -77,8 +77,7 @@ class PostController extends Controller
             $grid->id('ID')->sortable();
 	        $grid->column('title');
 			$grid->uid()->display(function ($uid){
-				//return Post::find($uid)->author->name;
-				return $uid;
+				return Post::find($uid)->author->name;
 			});
 			$grid->image()->display(function ($image){
 				return '<img class="img-thumbnail" src="/storage/uploads/' . $image . '"style="height: 125px;" />';
@@ -100,12 +99,16 @@ class PostController extends Controller
         return Admin::form(Post::class, function (Form $form) {
 
             $form->display('id', 'ID');
+            $form->display('uid', '作者')->value(Admin::user()->name);
+            $form->select('cid', '分类')->options([1, 2, 3]);
             $form->text('title', '标题');
 	        $form->tiny('content', '内容');
 	        $form->image('image','封面')->move('images/posts/'. date('Ymd', time()));
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
-
+	        $form->saving(function (Form $form) {
+		        $form->uid = Admin::user()->id;
+	        });
         });
     }
 }

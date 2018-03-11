@@ -12,4 +12,5 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('post', 'PostController');
+    $router->any('config', 'ConfigController@index');
 });
