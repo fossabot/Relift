@@ -21,9 +21,9 @@ class Post extends Model
     	$p = [];
     	foreach ($posts as $key => $value){
 			foreach ($value->toArray() as $k => $v){
-				/*if ($k == 'uid'){
-					$p[$key][$k] = self::where(['uid', '=', $v])->get()->author->name;
-				}*/
+				if ($k == 'uid'){
+					$p[$key][$k] = self::where('uid', '=', $v)->first()->author->name;
+				}
 				$p[$key][$k] = $v;
 			}
 	    }
