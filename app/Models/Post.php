@@ -13,7 +13,7 @@ class Post extends Model
     }
 
     public function page(){
-    	return self::paginate(1);
+    	return self::paginate(2);
     }
 
     public function allPosts(){
@@ -22,9 +22,10 @@ class Post extends Model
     	foreach ($posts as $key => $value){
 			foreach ($value->toArray() as $k => $v){
 				if ($k == 'uid'){
-					$p[$key][$k] = self::where('uid', '=', $v)->first()->author->name;
-				}
-				$p[$key][$k] = $v;
+                    $p[$key][$k] = self::where('uid', '=', $v)->first()->author->name;
+                }else {
+                    $p[$key][$k] = $v;
+                }
 			}
 	    }
 
