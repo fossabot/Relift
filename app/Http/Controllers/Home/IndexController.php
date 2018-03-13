@@ -18,7 +18,6 @@ class IndexController extends Controller
     {
 		$posts = $post->allPosts();
 		$page = $post->page();
-		dd($posts);
         return view('home.index', ['posts' => $posts, 'page' => $page]);
     }
 

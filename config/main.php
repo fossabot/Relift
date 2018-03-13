@@ -18,7 +18,7 @@ return [
 	'title' => 'ReMyLift 社区',
 
 	// 网站description
-	'des' => 'ReMyLift 虚荣游戏社区',
+	'des' => 'ReMyLift 社区',
 
 	// 首页
 	'home' => [

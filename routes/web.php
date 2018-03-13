@@ -12,12 +12,11 @@
 */
 
 
-Route::post('up_img','Tool\\HomeController@uploadTinyImage');
 
 Route::namespace('Home')->group(function (){
 	Route::get('/','IndexController@index')->name('home');
 	Route::get('user/{name}','IndexController@profile')->name('profile');
-	Route::get('auth',function (){
+	Route::get('v',function (){
 		dd(Auth::user()->toArray());
 	});
 });
@@ -28,4 +27,10 @@ Route::namespace('Auth')->group(function (){
 	Route::get('signin','AuthController@signin')->name('login');
 	Route::post('_signin','LoginController@login')->name('_login');
 	Route::get('logout','AuthController@logout')->name('logout');
+});
+
+Route::namespace('Tool')->group(function (){
+    Route::post('up_img','HomeController@uploadTinyImage');
+    Route::get('m', 'VaingloryController@matches');
+    Route::get('p', 'VaingloryController@player');
 });
