@@ -153,7 +153,7 @@
                 <div class="col-md-6">
                     <div class="card card-plain card-form-horizontal">
                         <div class="card-body">
-                            <form method="" action="">
+                            <form method="post" action="">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="input-group">

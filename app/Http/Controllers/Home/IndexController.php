@@ -30,4 +30,9 @@ class IndexController extends Controller
     	$data['background'] = $profile->background;
     	return view('home.profile',['data' => $data]);
     }
+
+    public function vg()
+    {
+        return view('home.vainglory');
+    }
 }

@@ -15,6 +15,7 @@
 
 Route::namespace('Home')->group(function (){
 	Route::get('/','IndexController@index')->name('home');
+	Route::get('vg','IndexController@vg')->name('vg');
 	Route::get('user/{name}','IndexController@profile')->name('profile');
 	Route::get('v',function (){
 		dd(Auth::user()->toArray());
@@ -31,6 +32,6 @@ Route::namespace('Auth')->group(function (){
 
 Route::namespace('Tool')->group(function (){
     Route::post('up_img','HomeController@uploadTinyImage');
-    Route::get('m', 'VaingloryController@matches');
-    Route::get('p', 'VaingloryController@player');
+    Route::any('player','VaingloryController@getReName')->name('player');
+    Route::get('player/m/{re}/{name}/{num?}','VaingloryController@getMatches');
 });
