@@ -75,32 +75,6 @@ class Parsedown
 
     protected $urlsLinked = true;
 
-    function setSafeMode($safeMode)
-    {
-        $this->safeMode = (bool) $safeMode;
-
-        return $this;
-    }
-
-    protected $safeMode;
-
-    protected $safeLinksWhitelist = array(
-        'http://',
-        'https://',
-        'ftp://',
-        'ftps://',
-        'mailto:',
-        'data:image/png;base64,',
-        'data:image/gif;base64,',
-        'data:image/jpeg;base64,',
-        'irc:',
-        'ircs:',
-        'git:',
-        'ssh:',
-        'news:',
-        'steam:',
-    );
-
     #
     # Lines
     #
@@ -368,6 +342,8 @@ class Parsedown
     {
         $text = $Block['element']['text']['text'];
 
+        $text = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
+
         $Block['element']['text']['text'] = $text;
 
         return $Block;
@@ -378,7 +354,7 @@ class Parsedown
 
     protected function blockComment($Line)
     {
-        if ($this->markupEscaped or $this->safeMode)
+        if ($this->markupEscaped)
         {
             return;
         }
@@ -481,6 +457,8 @@ class Parsedown
     {
         $text = $Block['element']['text']['text'];
 
+        $text = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
+
         $Block['element']['text']['text'] = $text;
 
         return $Block;
@@ -537,10 +515,10 @@ class Parsedown
                 ),
             );
 
-            if($name === 'ol')
+            if($name === 'ol') 
             {
                 $listStart = stristr($matches[0], '.', true);
-
+                
                 if($listStart !== '1')
                 {
                     $Block['element']['attributes'] = array('start' => $listStart);
@@ -700,12 +678,12 @@ class Parsedown
 
     protected function blockMarkup($Line)
     {
-        if ($this->markupEscaped or $this->safeMode)
+        if ($this->markupEscaped)
         {
             return;
         }
 
-        if (preg_match('/^<(\w[\w-]*)(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*(\/)?>/', $Line['text'], $matches))
+        if (preg_match('/^<(\w*)(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*(\/)?>/', $Line['text'], $matches))
         {
             $element = strtolower($matches[1]);
 
@@ -1096,6 +1074,7 @@ class Parsedown
         if (preg_match('/^('.$marker.'+)[ ]*(.+?)[ ]*(?<!'.$marker.')\1(?!'.$marker.')/s', $Excerpt['text'], $matches))
         {
             $text = $matches[2];
+            $text = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
             $text = preg_replace("/[ ]*\n/", ' ', $text);
 
             return array(
@@ -1274,6 +1253,8 @@ class Parsedown
             $Element['attributes']['title'] = $Definition['title'];
         }
 
+        $Element['attributes']['href'] = str_replace(array('&', '<'), array('&amp;', '&lt;'), $Element['attributes']['href']);
+
         return array(
             'extent' => $extent,
             'element' => $Element,
@@ -1282,12 +1263,12 @@ class Parsedown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped or $this->safeMode or strpos($Excerpt['text'], '>') === false)
+        if ($this->markupEscaped or strpos($Excerpt['text'], '>') === false)
         {
             return;
         }
 
-        if ($Excerpt['text'][1] === '/' and preg_match('/^<\/\w[\w-]*[ ]*>/s', $Excerpt['text'], $matches))
+        if ($Excerpt['text'][1] === '/' and preg_match('/^<\/\w*[ ]*>/s', $Excerpt['text'], $matches))
         {
             return array(
                 'markup' => $matches[0],
@@ -1303,7 +1284,7 @@ class Parsedown
             );
         }
 
-        if ($Excerpt['text'][1] !== ' ' and preg_match('/^<\w[\w-]*(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*\/?>/s', $Excerpt['text'], $matches))
+        if ($Excerpt['text'][1] !== ' ' and preg_match('/^<\w*(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*\/?>/s', $Excerpt['text'], $matches))
         {
             return array(
                 'markup' => $matches[0],
@@ -1362,16 +1343,14 @@ class Parsedown
 
         if (preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE))
         {
-            $url = $matches[0][0];
-
             $Inline = array(
                 'extent' => strlen($matches[0][0]),
                 'position' => $matches[0][1],
                 'element' => array(
                     'name' => 'a',
-                    'text' => $url,
+                    'text' => $matches[0][0],
                     'attributes' => array(
-                        'href' => $url,
+                        'href' => $matches[0][0],
                     ),
                 ),
             );
@@ -1384,7 +1363,7 @@ class Parsedown
     {
         if (strpos($Excerpt['text'], '>') !== false and preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $Excerpt['text'], $matches))
         {
-            $url = $matches[1];
+            $url = str_replace(array('&', '<'), array('&amp;', '&lt;'), $matches[1]);
 
             return array(
                 'extent' => strlen($matches[0]),
@@ -1422,11 +1401,6 @@ class Parsedown
 
     protected function element(array $Element)
     {
-        if ($this->safeMode)
-        {
-            $Element = $this->sanitiseElement($Element);
-        }
-
         $markup = '<'.$Element['name'];
 
         if (isset($Element['attributes']))
@@ -1438,7 +1412,7 @@ class Parsedown
                     continue;
                 }
 
-                $markup .= ' '.$name.'="'.self::escape($value).'"';
+                $markup .= ' '.$name.'="'.$value.'"';
             }
         }
 
@@ -1452,7 +1426,7 @@ class Parsedown
             }
             else
             {
-                $markup .= self::escape($Element['text'], true);
+                $markup .= $Element['text'];
             }
 
             $markup .= '</'.$Element['name'].'>';
@@ -1511,76 +1485,9 @@ class Parsedown
         return $markup;
     }
 
-    protected function sanitiseElement(array $Element)
-    {
-        static $goodAttribute = '/^[a-zA-Z0-9][a-zA-Z0-9-_]*+$/';
-        static $safeUrlNameToAtt  = array(
-            'a'   => 'href',
-            'img' => 'src',
-        );
-
-        if (isset($safeUrlNameToAtt[$Element['name']]))
-        {
-            $Element = $this->filterUnsafeUrlInAttribute($Element, $safeUrlNameToAtt[$Element['name']]);
-        }
-
-        if ( ! empty($Element['attributes']))
-        {
-            foreach ($Element['attributes'] as $att => $val)
-            {
-                # filter out badly parsed attribute
-                if ( ! preg_match($goodAttribute, $att))
-                {
-                    unset($Element['attributes'][$att]);
-                }
-                # dump onevent attribute
-                elseif (self::striAtStart($att, 'on'))
-                {
-                    unset($Element['attributes'][$att]);
-                }
-            }
-        }
-
-        return $Element;
-    }
-
-    protected function filterUnsafeUrlInAttribute(array $Element, $attribute)
-    {
-        foreach ($this->safeLinksWhitelist as $scheme)
-        {
-            if (self::striAtStart($Element['attributes'][$attribute], $scheme))
-            {
-                return $Element;
-            }
-        }
-
-        $Element['attributes'][$attribute] = str_replace(':', '%3A', $Element['attributes'][$attribute]);
-
-        return $Element;
-    }
-
     #
     # Static Methods
     #
-
-    protected static function escape($text, $allowQuotes = false)
-    {
-        return htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
-    }
-
-    protected static function striAtStart($string, $needle)
-    {
-        $len = strlen($needle);
-
-        if ($len > strlen($string))
-        {
-            return false;
-        }
-        else
-        {
-            return strtolower(substr($string, 0, $len)) === strtolower($needle);
-        }
-    }
 
     static function instance($name = 'default')
     {

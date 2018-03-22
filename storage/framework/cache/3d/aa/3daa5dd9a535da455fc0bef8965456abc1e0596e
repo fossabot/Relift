@@ -1,0 +1,51 @@
+1521733165a:1:{s:10:"ui3kit.htm";a:7:{s:8:"fileName";s:10:"ui3kit.htm";s:7:"content";s:1329:"title = "Welcome to UI3kit"
+url = "/"
+==
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ this.page.title }} | {{ this.theme.site_name }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="{{ this.theme.brand_color }}">
+    <link rel="shortcut icon" href="{{ 'assets/images/uikit/icon.png'|theme }}">
+    <link rel="stylesheet" href="{{ ('assets/css/uikit3.min.css')|theme }}?v={{ this.theme.version }}">
+</head>
+<body class="uk-height-viewport">
+<section class="uk-section uk-text-center">
+    <h1 class="uk-heading-primary"><img src="{{ 'assets/images/uikit/icon.png'|theme }}"> {{ this.page.title }}</h1>
+    <a href="{{ 'styleguide/uikit3'|page }}"><span uk-icon="icon:paint-bucket"></span> Style Guide</a>
+    &nbsp;
+    <a href="https://getuikit.com/docs/introduction"><span uk-icon="icon:nut"></span> Documentation</a>
+    &nbsp;
+    <a href="https://getuikit.com/changelog"><span uk-icon="icon:table"></span> Changelog</a>
+</section>
+<script src="{{ ('assets/js/uikit3.min.js')|theme }}?v={{ this.theme.version }}"></script>
+<script src="{{ ('assets/js/uikit3-icons.min.js')|theme }}?v={{ this.theme.version }}"></script>
+</body>
+</html>
+";s:5:"mtime";i:1521731792;s:6:"markup";s:1287:"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ this.page.title }} | {{ this.theme.site_name }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="{{ this.theme.brand_color }}">
+    <link rel="shortcut icon" href="{{ 'assets/images/uikit/icon.png'|theme }}">
+    <link rel="stylesheet" href="{{ ('assets/css/uikit3.min.css')|theme }}?v={{ this.theme.version }}">
+</head>
+<body class="uk-height-viewport">
+<section class="uk-section uk-text-center">
+    <h1 class="uk-heading-primary"><img src="{{ 'assets/images/uikit/icon.png'|theme }}"> {{ this.page.title }}</h1>
+    <a href="{{ 'styleguide/uikit3'|page }}"><span uk-icon="icon:paint-bucket"></span> Style Guide</a>
+    &nbsp;
+    <a href="https://getuikit.com/docs/introduction"><span uk-icon="icon:nut"></span> Documentation</a>
+    &nbsp;
+    <a href="https://getuikit.com/changelog"><span uk-icon="icon:table"></span> Changelog</a>
+</section>
+<script src="{{ ('assets/js/uikit3.min.js')|theme }}?v={{ this.theme.version }}"></script>
+<script src="{{ ('assets/js/uikit3-icons.min.js')|theme }}?v={{ this.theme.version }}"></script>
+</body>
+</html>";s:4:"code";N;s:5:"title";s:17:"Welcome to UI3kit";s:3:"url";s:1:"/";}}

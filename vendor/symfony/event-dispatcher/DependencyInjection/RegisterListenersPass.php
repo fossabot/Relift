@@ -31,7 +31,12 @@ class RegisterListenersPass implements CompilerPassInterface
     private $hotPathEvents = array();
     private $hotPathTagName;
 
-    public function __construct(string $dispatcherService = 'event_dispatcher', string $listenerTag = 'kernel.event_listener', string $subscriberTag = 'kernel.event_subscriber')
+    /**
+     * @param string $dispatcherService Service name of the event dispatcher in processed container
+     * @param string $listenerTag       Tag name used for listener
+     * @param string $subscriberTag     Tag name used for subscribers
+     */
+    public function __construct($dispatcherService = 'event_dispatcher', $listenerTag = 'kernel.event_listener', $subscriberTag = 'kernel.event_subscriber')
     {
         $this->dispatcherService = $dispatcherService;
         $this->listenerTag = $listenerTag;
@@ -84,15 +89,17 @@ class RegisterListenersPass implements CompilerPassInterface
             $def = $container->getDefinition($id);
 
             // We must assume that the class value has been correctly filled, even if the service is created by a factory
-            $class = $def->getClass();
+            $class = $container->getParameterBag()->resolveValue($def->getClass());
+            $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
 
-            if (!$r = $container->getReflectionClass($class)) {
-                throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+            if (!is_subclass_of($class, $interface)) {
+                if (!class_exists($class, false)) {
+                    throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                }
+
+                throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
             }
-            if (!$r->isSubclassOf(EventSubscriberInterface::class)) {
-                throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, EventSubscriberInterface::class));
-            }
-            $class = $r->name;
+            $container->addObjectResource($class);
 
             ExtractingEventDispatcher::$subscriber = $class;
             $extractingDispatcher->addSubscriber($extractingDispatcher);
