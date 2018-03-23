@@ -1,0 +1,168 @@
+1521785518a:1:{s:8:"main.htm";a:6:{s:8:"fileName";s:8:"main.htm";s:7:"content";s:2722:"description = "Relift"
+==
+<!DOCTYPE html>
+<html lang="en" class="no-js" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>{{ this.page.meta_title|default(this.page.title) }}</title>
+    <link rel="canonical" href="{{ ''|page }}">
+
+    <meta name="theme-color" content="{{ this.theme.brand_color }}">
+    <!--<link rel="shortcut icon" href="{{ 'assets/images/'|theme }}">-->
+
+    <link rel="stylesheet" href="{{ 'assets/css/iview.css'|theme }}">
+    <style>
+        .layout{
+            border: 1px solid #d7dde4;
+            background: #f5f7f9;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .layout-logo{
+            width: 100px;
+            height: 30px;
+            background: #5b6270;
+            border-radius: 3px;
+            float: left;
+            position: relative;
+            top: 15px;
+            left: 20px;
+        }
+        .layout-nav{
+            width: 420px;
+            margin: 0 auto;
+            margin-right: 20px;
+        }
+        .layout-footer-center{
+            text-align: center;
+        }
+    </style>
+    <script src="{{ 'assets/js/vue.min.js'|theme }}"></script>
+    <script src="{{ 'assets/js/iview.min.js'|theme }}"></script>
+</head>
+
+<body>
+<div id="app">
+    <div class="layout">
+        <layout>
+            <i-header>
+                <i-menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-logo"></div>
+                    <div class="layout-nav">
+                        <menu-item name="1">
+                            <icon type="ios-navigate"></icon>
+                            Item 1
+                        </menu-item>
+                        <menu-item name="2">
+                            <icon type="ios-keypad"></icon>
+                            Item 2
+                        </menu-item>
+                        <menu-item name="3">
+                            <icon type="ios-analytics"></icon>
+                            Item 3
+                        </menu-item>
+                        <menu-item name="4">
+                            <icon type="ios-paper"></icon>
+                            Item 4
+                        </menu-item>
+                    </div>
+                </i-menu>
+            </i-header>
+    {% page %}
+            <i-footer class="layout-footer-center">2011-2016 &copy; TalkingData</i-footer>
+        </layout>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
+";s:5:"mtime";i:1521784869;s:6:"markup";s:2692:"<!DOCTYPE html>
+<html lang="en" class="no-js" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>{{ this.page.meta_title|default(this.page.title) }}</title>
+    <link rel="canonical" href="{{ ''|page }}">
+
+    <meta name="theme-color" content="{{ this.theme.brand_color }}">
+    <!--<link rel="shortcut icon" href="{{ 'assets/images/'|theme }}">-->
+
+    <link rel="stylesheet" href="{{ 'assets/css/iview.css'|theme }}">
+    <style>
+        .layout{
+            border: 1px solid #d7dde4;
+            background: #f5f7f9;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .layout-logo{
+            width: 100px;
+            height: 30px;
+            background: #5b6270;
+            border-radius: 3px;
+            float: left;
+            position: relative;
+            top: 15px;
+            left: 20px;
+        }
+        .layout-nav{
+            width: 420px;
+            margin: 0 auto;
+            margin-right: 20px;
+        }
+        .layout-footer-center{
+            text-align: center;
+        }
+    </style>
+    <script src="{{ 'assets/js/vue.min.js'|theme }}"></script>
+    <script src="{{ 'assets/js/iview.min.js'|theme }}"></script>
+</head>
+
+<body>
+<div id="app">
+    <div class="layout">
+        <layout>
+            <i-header>
+                <i-menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-logo"></div>
+                    <div class="layout-nav">
+                        <menu-item name="1">
+                            <icon type="ios-navigate"></icon>
+                            Item 1
+                        </menu-item>
+                        <menu-item name="2">
+                            <icon type="ios-keypad"></icon>
+                            Item 2
+                        </menu-item>
+                        <menu-item name="3">
+                            <icon type="ios-analytics"></icon>
+                            Item 3
+                        </menu-item>
+                        <menu-item name="4">
+                            <icon type="ios-paper"></icon>
+                            Item 4
+                        </menu-item>
+                    </div>
+                </i-menu>
+            </i-header>
+    {% page %}
+            <i-footer class="layout-footer-center">2011-2016 &copy; TalkingData</i-footer>
+        </layout>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>";s:4:"code";N;s:11:"description";s:6:"Relift";}}
