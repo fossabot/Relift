@@ -1,0 +1,2 @@
+
+{{ theme('home_title') }}
