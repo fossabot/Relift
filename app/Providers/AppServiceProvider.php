@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use TCG\Voyager\Facades\Voyager;
+use App\Voyager\FormFields\MultipleImagesHandler;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+	    Voyager::addFormField(MultipleImagesHandler::class);
     }
 }

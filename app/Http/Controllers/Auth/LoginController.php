@@ -3,37 +3,44 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use TCG\Voyager\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Profile;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+	protected $email_regex = '/([\w\-]+\@[\w\-]+\.[\w\-]+)/';
 
-    use AuthenticatesUsers;
+	public function login(Request $request)
+	{
+		if (preg_match($this->email_regex,$request->email)){
+			$va = 'required|email|max:255';
+			$attempt = 'email';
+		}else{
+			$va = 'required';
+			$attempt = 'name';
+		}
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+		$this->validate($request, [
+			'email' => $va,
+			'password' => 'required',
+		],[
+			'email.required' => '请填写邮箱/用户名',
+			'email.email' => '邮箱格式不正确',
+			'email.max' => '邮箱过长',
+			'password.required' => '请填写密码'
+		]);
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+		if (Auth::attempt([
+			$attempt => $request->email,
+			'password' => $request->password
+		],$request->has('remember'))) {
+			User::find(Auth::id())->save(['login_ip' => getIP()]);
+			return redirect()->route('user',['name' => Auth::user()->name]);
+		} else {
+			session()->flash('danger', '很抱歉，你的邮箱/用户名和密码不匹配');
+			return redirect()->back();
+		}
+	}
 }
