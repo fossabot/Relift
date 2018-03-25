@@ -22,7 +22,7 @@
 <div class="card">
     <div class="card-body">
         <input class="btn btn-primary" type="button" value="首页" id="btn-home">
-        <input class="btn btn-success" type="button" value="登入注册" id="btn-auth">
+        <input class="btn btn-success" type="button" value="各页背景" id="btn-bg">
         <input class="btn btn-danger" type="button" value="轮播图" id="btn-carousel">
         <input class="btn btn-warning" type="button" value="vainglory" id="btn-vg">
     </div>
@@ -53,9 +53,13 @@
 
 
 
-<div class="card" id="card-auth" style="display: none">
+<div class="card" id="card-bg" style="display: none">
     <div class="card-body">
         {!! theme_field('image', 'auth_background', '登录注册页背景') !!}
+    </div>
+    <hr />
+    <div class="card-body">
+        {!! theme_field('image', 'category_background', '分类页背景') !!}
     </div>
 </div>
 
@@ -98,28 +102,28 @@
 <script>
     $('#btn-home').click(function () {
         $('#card-home').css('display', 'block');
-        $('#card-auth').css('display', 'none');
+        $('#card-bg').css('display', 'none');
         $('#card-carousel').css('display', 'none');
         $('#card-vg').css('display', 'none');
     });
 
-    $('#btn-auth').click(function () {
+    $('#btn-bg').click(function () {
         $('#card-home').css('display', 'none');
-        $('#card-auth').css('display', 'block');
+        $('#card-bg').css('display', 'block');
         $('#card-carousel').css('display', 'none');
         $('#card-vg').css('display', 'none');
     });
 
     $('#btn-carousel').click(function () {
         $('#card-home').css('display', 'none');
-        $('#card-auth').css('display', 'none');
+        $('#card-bg').css('display', 'none');
         $('#card-carousel').css('display', 'block');
         $('#card-vg').css('display', 'none');
     });
 
     $('#btn-vg').click(function () {
         $('#card-home').css('display', 'none');
-        $('#card-auth').css('display', 'none');
+        $('#card-bg').css('display', 'none');
         $('#card-carousel').css('display', 'none');
         $('#card-vg').css('display', 'block');
     });

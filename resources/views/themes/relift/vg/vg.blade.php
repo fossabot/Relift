@@ -22,18 +22,18 @@
                                 <form action="{{ url('player.html') }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-xl-5 col-xl-5">
                                             <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">face</i>
                                             </span>
                                                 <div class="form-group label-floating has-default bmd-form-group">
-                                                    <input type="text" name="name" class="form-control" placeholder="填写游戏昵称" value="{{ old('name') }}">
+                                                    <input type="text" name="name" class="form-control" placeholder="填写游戏昵称" value="{{ old('name') }}" id="player-name" onchange="document.getElementById('player-link').setAttribute('href', '{{ url('player') }}/' + document.getElementById('player-name').value);">
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        {{--<div class="col-md-4">
                                             <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">build</i>
@@ -50,9 +50,9 @@
                                                     <span class="material-input"></span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-3">
-                                            <input type="submit" value="查询" class="btn btn-primary btn-round btn-block">
+                                            <a class="btn btn-primary btn-round btn-block" id="player-link" style="color: #ffffff">战绩查询</a>
                                         </div>
                                     </div>
                                 </form>
@@ -63,15 +63,4 @@
             </div>
         </div>
     </div>
-    <footer class="footer ">
-        <div class="container">
-            <div class="copyright pull-right">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Designed By
-                <a href="http://tyrantgenesis.cc" target="_blank"> TyrantGenesis </a>
-            </div>
-        </div>
-    </footer>
 @endsection

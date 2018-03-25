@@ -40,9 +40,9 @@
                                 <span class="sr-only">Next</span>
                             </a>
                             <ol class="carousel-indicators" style="top: 60%">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                @for ($i = 0; $i < $num; $i++)
+                                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i }}" @if($i == 0) active @endif></li>
+                                @endfor
                             </ol>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-7">
-                                            <h6 class="card-category text-info">{{ $post['category'] }}</h6>
+                                            <h6 class="card-category text-info"><a href="{{ url('category/'. $post['category_slug'] . '.html')  }}">{{ $post['category'] }}</a></h6>
                                             <h3 class="card-title">
                                                 <a href="{{ url('post/' . $post['slug'] . '.html') }}">{{ $post['title'] }}</a>
                                             </h3>

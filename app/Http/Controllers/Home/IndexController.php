@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use VoyagerThemes\Models\ThemeOptions;
 use TCG\Voyager\Models\Post;
 use TCG\Voyager\Models\User;
+use TCG\Voyager\Models\Category;
 
 class IndexController extends Controller
 {
@@ -22,6 +23,7 @@ class IndexController extends Controller
 	    foreach ($posts as $key => $post){
 	    	$p[$key]['author'] = $post->authorId->name;
 	    	$p[$key]['category'] = $post->category->name;
+	    	$p[$key]['category_slug'] = $post->category->slug;
 	    	$p[$key]['title'] = $post->title;
 	    	$p[$key]['content'] = $post->body;
 	    	$p[$key]['image'] = $post->image;
@@ -35,6 +37,7 @@ class IndexController extends Controller
 		$post = Post::where('slug', $slug)->first();
 		$post->_author = $post->authorId->name;
 		$post->_category = $post->category->name;
+		$post->_category_slug = $post->category->slug;
 
 		return view('theme::home.post', ['post' => $post->toArray()]);
     }
@@ -43,5 +46,20 @@ class IndexController extends Controller
 	    $user = User::where('name', $name)->first();
 
 	    return view('theme::home.user', ['user' => $user]);
+    }
+
+    public function category($slug){
+	    $category = Category::where('slug', $slug)->first();
+		$num = count($category->posts);
+		$posts = [];
+	    foreach ($category->posts as $key => $post){
+	    	$posts[$key]['title'] = $post->title;
+	    	$posts[$key]['slug'] = $post->slug;
+		    $posts[$key]['author'] = $post->authorId->name;
+		    $posts[$key]['image'] = $post->image;
+		    $posts[$key]['body'] = $post->body;
+		    $posts[$key]['category'] = $category->name;
+	    }
+	    return view('theme::home.category', ['num' => $num, 'posts' => $posts, 'category' => $category->name]);
     }
 }

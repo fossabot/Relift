@@ -7,14 +7,14 @@ use App\Http\Controllers\Controller;
 
 class VgController extends Controller
 {
-	private $_re = ['cn', 'na', 'eu', 'sa', 'ea', 'sg'];
+	//private $_re = ['cn', 'na', 'eu', 'sa', 'ea', 'sg'];
 
 	public function index(){
 		return view('theme::vg.vg');
 	}
 
-	private function player($name, $re){
-		$response = \VGWrap::get('shards/'. $re .'/players', [
+	private function player($name){
+		$response = \VGWrap::get('shards/cn/players', [
 			'query' => [
 				'filter' => [
 					'playerNames' => $name
@@ -25,28 +25,36 @@ class VgController extends Controller
 		dump($player);
 	}
 
-	public function matches(Request $request){
-		$name = $request->get('name');
-		$re = $this->_re[$request->get('re')];
-		$response = \VGWrap::get('shards/'. $re .'/matches', [
+	public function matches($name){
+		$response = \VGWrap::get('shards/cn/matches', [
 			'query' => [
 				'sort' => 'sort=-createdAt',
 				'filter' => [
 					'playerNames' => $name
 				],
 				'page' => [
-					'limit' => 1
+					'limit' => 2
 				],
 			]
 		]);
 		$matches = json_decode($response->getBody()->getContents());
-		dump($matches);
+		dump(get_object_vars($matches));
 		foreach ($matches->data as $key => $match){
-			foreach ($match->relationships->rosters->data as $k => $v){
-				$m[$key]['rosters'][$k] = $v->id;
-			}
+			$m[$key]['blue']['all'] = $match->relationships->rosters->data[0]->id;
+			$m[$key]['red']['all'] = $match->relationships->rosters->data[1]->id;
 		}
 
+		foreach ($matches->included as $key => $in){
+			foreach ($m as $k => $v){
+				if ($in->id == $v['blue']['all']){
+					$m[$k]['blue']['data'] = $in->relationships->participants->data;
+				}elseif ($in->id == $v['red']['all']){
+					$m[$k]['red']['data'] = $in->relationships->participants->data;
+				}
+
+
+			}
+		}
 		dump($m);
 		return view('theme::vg.show');
 

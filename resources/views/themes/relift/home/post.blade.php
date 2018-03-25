@@ -26,7 +26,7 @@
                             <div class="col-md-6">
                                 <div class="blog-tags">
                                     分类标签:
-                                    <span class="badge badge-primary badge-pill">{{ $post['_category'] }}</span>
+                                    <a href="{{ url('category/' . $post['_category_slug'] . '.html') }}"><span class="badge badge-primary badge-pill">{{ $post['_category'] }}</span></a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -46,14 +46,14 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="card-avatar">
-                                        <a href="#pablo">
+                                        <a href="{{ url('user/' . $post['author_id']['name'] . '.html') }}">
                                             <img class="img" src="{{ media($post['author_id']['avatar']) }}">
                                         </a>
                                         <div class="ripple-container"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h4 class="card-title">{{ $post['author_id']['name'] }}</h4>
+                                    <a href="{{ url('user/' . $post['author_id']['name'] . '.html') }}"><h4 class="card-title">{{ $post['author_id']['name'] }}</h4></a>
                                     <p class="description">{{ $post['author_id']['description'] }}</p>
                                 </div>
                                 <div class="col-md-2">

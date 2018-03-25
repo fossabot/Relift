@@ -35,17 +35,17 @@
                         <i class="material-icons">home</i> 首页
                     </a>
                 </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">apps</i> 用户中心
-                    </a>
-                    <div class="dropdown-menu dropdown-with-icons">
-                        <a href="{{ url('user/' . Auth::user()->name . '.html') }}" class="dropdown-item">
-                            <i class="material-icons">layers</i> 用户信息
-                        </a>
-                    </div>
-                </li>
                 @if(Auth::check())
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">apps</i> 用户中心
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="{{ url('user/' . Auth::user()->name . '.html') }}" class="dropdown-item">
+                                <i class="material-icons">layers</i> 用户信息
+                            </a>
+                        </div>
+                    </li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">code</i> 工具
