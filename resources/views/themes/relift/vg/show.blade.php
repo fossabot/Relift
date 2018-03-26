@@ -49,7 +49,7 @@
                                             @endphp
                                         </span><br />
                                         <span>{{ $value['part_data']->stats->kills }}/{{ $value['part_data']->stats->deaths }}/{{ $value['part_data']->stats->assists }}</span><br />
-                                        <span>KDA:{{ round(($value['part_data']->stats->kills + $value['part_data']->stats->assists) / $value['part_data']->stats->deaths, 2) }}</span><br />
+                                        <span>KDA:{{ $value['part_data']->stats->deaths ? round(($value['part_data']->stats->kills + $value['part_data']->stats->assists) / $value['part_data']->stats->deaths, 2) : $value['part_data']->stats->kills + $value['part_data']->stats->assists }}</span><br />
                                     </div>
                                     <div class="col-xl-2 col-md-4"></div>
                                     <div class="col-xl-3 col-md-6 text-right">
@@ -69,7 +69,26 @@
                             <div class="collapse" id="collapseExample{{ $key }}">
                                 <div class="card-body">
                                     <hr />
-
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-left">@if($value[0]['roster']->won == 'true') <span class="badge badge-info">胜利</span> @else <span class="badge badge-danger">失败</span> @endif 蓝色方</th>
+                                            <th class="text-left">出装</th>
+                                            <th class="text-right">出装</th>
+                                            <th class="text-right">红色方 @if($value[1]['roster']->won == 'true') <span class="badge badge-info">胜利</span> @else <span class="badge badge-danger">失败</span> @endif</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($value[0]['part_data'] as $k => $v)
+                                        <tr>
+                                            <td class="text-left"><img width="30px" class="rounded-circle" src="{{ vg(trim($v->actor, '*')) }}"> <a href="{{ url('player/' . $value[0]['player_data'][$k]->name) }}">{{ $value[0]['player_data'][$k]->name }}</a></td>
+                                            <td class="text-left">null</td>
+                                            <td class="text-right">null</td>
+                                            <td class="text-right"><a href="{{ url('player/' . $value[1]['player_data'][$k]->name) }}">{{ $value[1]['player_data'][$k]->name }}</a> <img width="30px" class="rounded-circle" src="{{ vg(trim($value[1]['part_data'][$k]->actor, '*')) }}"></td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

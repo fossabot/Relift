@@ -22,8 +22,8 @@ class VgController extends Controller
 					'playerNames' => $name,
 				],
 				'page' => [
-					'limit' => 2,
-					'offset' =>40
+					'limit' => 1,
+					'offset' =>41
 				],
 			]
 		]);
