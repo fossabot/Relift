@@ -71,10 +71,23 @@ if (! function_exists('nb')){
 	/**
 	 * 文章起头空行
 	 *
-	 * @return String $js
+	 * @return String $xxx
 	 */
 
 	function nb(){
 		return str_repeat('&nbsp;', 6);
+	}
+}
+
+if (! function_exists('vg')){
+	/**
+	 * 虚荣图片
+	 *
+	 *@param String $name
+	 * @return String $images
+	 */
+
+	function vg($name){
+		return media('heros/' . $name . '.gif');
 	}
 }

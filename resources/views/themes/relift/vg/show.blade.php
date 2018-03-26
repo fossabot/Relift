@@ -26,30 +26,50 @@
                 <div class="row">
                     <div class="col-md-12">
                         @foreach($m as $key => $value)
-                        <div class="card vg-blue">
-                            <div class="card-body"  data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="card @if($value['won'] == 'true') vg-blue @else vg-red @endif">
+                            <div class="card-body"  data-toggle="collapse" href="#collapseExample{{ $key }}" aria-expanded="false" aria-controls="collapseExample">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        使用英雄：
+                                    <div class="col-xl-2 col-md-4">
+                                        @if($value['won'] == 'true') <span class="badge badge-info">胜利</span> @else <span class="badge badge-danger">失败</span> @endif
+                                        <img width="120px" class="rounded-circle" src="{{ vg(trim($value['part_data']->actor, '*')) }}">
                                     </div>
-                                    <div class="col-md-5">0</div>
-                                    <div class="col-md-2">
+                                    <div class="col-xl-2 col-md-4">
+                                        <span><i class="material-icons">access_time</i>{{ date('i:s', $value['match']->duration) }}</span><br />
+                                        <span>{{ $value['match']->gameMode }}</span><br />
+                                        <span>
+                                            @php
+                                            $time = $value['match']->createdAt;
+                                            list($at, $b_t) = explode('T', $time);
+                                            $bt = rtrim($b_t, '*');
+                                            $time = time() - strtotime($at . ' ' . $bt);
+                                            if ($time < 24 * 60 * 60)
+                                            echo date('H', $time) . '小时前';
+                                            else
+                                            echo date('j', $time) . '天前';
+                                            @endphp
+                                        </span><br />
+                                        <span>{{ $value['part_data']->stats->kills }}/{{ $value['part_data']->stats->deaths }}/{{ $value['part_data']->stats->assists }}</span><br />
+                                        <span>KDA:{{ round(($value['part_data']->stats->kills + $value['part_data']->stats->assists) / $value['part_data']->stats->deaths, 2) }}</span><br />
+                                    </div>
+                                    <div class="col-xl-2 col-md-4"></div>
+                                    <div class="col-xl-3 col-md-6 text-right">
                                         蓝色方 : <br />
                                         @foreach($value[0]['player_data'] as $k => $v)
-                                        {{ $v->name }}<br/>
+                                        <a href="{{ url('player/' . $v->name) }}">{{ $v->name . nb() }}</a><img width="30px" class="rounded-circle" src="{{ vg(trim($value[0]['part_data'][$k]->actor, '*')) }}"><br/>
                                         @endforeach
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-xl-3 col-md-6 text-left">
                                         红色方 : <br />
                                         @foreach($value[1]['player_data'] as $k => $v)
-                                            {{ $v->name }}<br/>
+                                            <img width="30px" class="rounded-circle" src="{{ vg(trim($value[1]['part_data'][$k]->actor, '*')) }}"><a href="{{ url('player/' . $v->name) }}">{{ nb() . $v->name }}</a><br/>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            <div class="collapse" id="collapseExample{{ $key }}">
+                                <div class="card-body">
+                                    <hr />
+
                                 </div>
                             </div>
                         </div>
@@ -70,4 +90,12 @@
             </div>
         </div>
     </footer>
+    <script>
+        var a = document.getElementsByTagName('a');
+        for (var i = 0;i < a.length;i++){
+            a[i].onclick = function () {
+                window.location.href = this.getAttribute('href');
+            }
+        }
+    </script>
 @endsection

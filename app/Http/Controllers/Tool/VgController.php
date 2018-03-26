@@ -13,17 +13,6 @@ class VgController extends Controller
 		return view('theme::vg.vg');
 	}
 
-	private function player($name){
-		$response = \VGWrap::get('shards/cn/players', [
-			'query' => [
-				'filter' => [
-					'playerNames' => $name
-				]
-			]
-		]);
-		return $player = json_decode($response->getBody()->getContents());
-	}
-
 	public function matches($name){
 		$response = \VGWrap::get('shards/cn/matches', [
 			'query' => [
@@ -33,8 +22,8 @@ class VgController extends Controller
 					'playerNames' => $name,
 				],
 				'page' => [
-					'limit' => 1,
-                    'offset' => 39,
+					'limit' => 2,
+					'offset' =>40
 				],
 			]
 		]);
@@ -42,10 +31,9 @@ class VgController extends Controller
 		$matches = json_decode($response->getBody()->getContents());
 		dump($matches);
 
-		$player = $this->player($name);
-        $p['data'] = $player->data[0];
 		$tmp = [];
 		$m = [];
+		$player = [];
 
 		foreach ($matches->data as $key => $match){
 
@@ -55,7 +43,7 @@ class VgController extends Controller
 			        if ($v->type == 'roster'){
 			            if ($v->id == $vv->id){
 			                $tmp[$kk]['id'] = $vv->id;
-			                $m[$key][$kk]['match'] = $match->attributes;
+			                $m[$key]['match'] = $match->attributes;
                         }
                     }
                 }
@@ -74,10 +62,6 @@ class VgController extends Controller
                         $tmp[1]['part_id'][$kk] = $vv->id;
                     }
                 }
-
-               /* if ($v->type == 'participant'){
-                    foreach ($v->)
-                }*/
             }
 
             foreach ($matches->included as $k => $v){
@@ -95,22 +79,41 @@ class VgController extends Controller
                 }
             }
 
+			foreach ($matches->included as $k => $v){
+				if ($v->type == 'player'){
+					if($v->attributes->name == $name){
+						$player = $v;
+						break;
+					}
+				}
+			}
+
             foreach ($matches->included as $k => $v){
 			    foreach ($tmp[0]['player_id'] as $kk => $vv){
                     if ($v->id == $vv){
                         $m[$key][0]['player_data'][$kk] = $v->attributes;
+                    }
+                    if ($vv == $player->id){
+	                    $m[$key]['won'] = $m[$key][0]['roster']->won;
+	                    $m[$key]['part_data'] = $m[$key][0]['part_data'][$kk];
                     }
                 }
 			    foreach ($tmp[1]['player_id'] as $kk => $vv){
                     if ($v->id == $vv){
                         $m[$key][1]['player_data'][$kk] = $v->attributes;
                     }
+				    if ($vv == $player->id){
+					    $m[$key]['won'] = $m[$key][1]['roster']->won;
+					    $m[$key]['part_data'] = $m[$key][0]['part_data'][$kk];
+				    }
                 }
             }
+
 		}
 
 		dump($m);
-		return view('theme::vg.show', compact('m', 'p'));
+		dump($player);
+		return view('theme::vg.show', compact('m', 'player'));
 
 	}
 
